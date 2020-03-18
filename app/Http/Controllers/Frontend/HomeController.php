@@ -80,7 +80,16 @@ class HomeController extends Controller {
      */
     public function index()
     {
-        return view('frontend.index');
+        $lois     = $this->loi->getAllSigle();
+        $articles = $lois->mapWithKeys(function ($loi) {
+            return [
+                $loi->id => $loi->dispositions->mapToGroups(function ($disposition, $key) {
+                    return [$disposition->cote => $disposition->toArray()];
+                })
+            ];
+        });
+
+        return view('frontend.index')->with(['lois' => $lois->groupBy('droit'), 'articles' => $articles]);
     }
 
     /**
@@ -213,7 +222,7 @@ class HomeController extends Controller {
 
         $section = [ 'url' => 'jurisprudence/' , 'page' => 'Jurisprudence' ];
         $page    = [ 'page' => 'arrêt' ];
-  
+
         return view('frontend.arret')->with(array('arret' => $arret, 'critique' => $critique, 'section' => $section, 'page' => $page));
     }
 

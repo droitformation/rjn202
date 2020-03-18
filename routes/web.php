@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth','abonne']], function()
     Route::match(['get', 'post'], 'search','Frontend\SearchController@index');
     Route::match(['get', 'post'], 'terms', 'Frontend\SearchController@searching');
 
+    Route::post('ajax/notes', 'Frontend\SearchController@notes');
+
 });
 
 // Admin routes
@@ -83,9 +85,51 @@ Route::get('activate', 'Auth\LoginController@getActivate');
 Route::post('postCode', 'Auth\LoginController@postCode');
 Route::post('postActivate', 'Auth\LoginController@postActivate');
 
+
 // Test routes for development
 Route::get('testing', function()
 {
+    // $model = \App::make('App\Droit\Disposition\Repo\DispositionInterface');
+    //$result = $model->newsearch(['loi' => 10, 'article' => 23]);
+
+    $model = \App::make('App\Droit\Loi\Repo\LoiInterface');
+    $l = $model->find(13);
+
+/*    echo '<pre>';
+    print_r($l->dispositions);
+    echo '</pre>';
+    exit;*/
+
+    $lois = $model->getAllSigle();
+
+    $grouped = $lois->mapWithKeys(function ($loi) {
+        return [
+            $loi->id => $loi->dispositions->mapToGroups(function ($disposition, $key) use($loi) {
+                return [
+                    trim($disposition->cote) => [
+                        'pages' => $disposition->disposition_pages->map(function ($item, $key) {
+                            return [
+                                'alinea'  => $item->alinea,
+                                'chiffre' => $item->chiffre,
+                                'lettre'  => $item->lettre
+                            ];
+                        })
+                        //'alineas'  => !$alineas->isEmpty() ? $alineas->toArray() : null,
+                        //'chiffres' => !$chiffres->isEmpty() ? $chiffres->toArray() : null,
+                        //'lettres'  => !$lettres->isEmpty() ? $lettres->toArray() : null,
+                    ]
+                ];
+            })
+        ];
+    })->toArray();
+
+    $droit = $lois->groupBy('droit');
+
+    echo '<pre>';
+
+    print_r($grouped);
+    echo '</pre>';exit();
+
     $model = new \App\Droit\Matiere\Entities\Matiere();
     $model_note = new \App\Droit\Matiere\Entities\Matiere_note();
     $model_note_page = new \App\Droit\Matiere\Entities\Matiere_note_page();
@@ -138,12 +182,7 @@ Route::get('testing', function()
     */
 
     // App\Droit\Matiere\Repo\MatiereInterface
-    $model = \App::make('App\Droit\Disposition\Repo\DispositionInterface');
-    $result = $model->newsearch(['loi' => 10, 'article' => 23]);
 
-    echo '<pre>';
-    print_r($result);
-    echo '</pre>';exit();
 });
 
 

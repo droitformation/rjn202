@@ -70,7 +70,7 @@ class CodeTest extends TestCase
 
         $user = factory(\App\Droit\User\Entities\User::class)->create([
             'email' => 'info@leschaud.ch',
-            'password' => 'wsdew23cdds'
+            'password' => bcrypt('wsdew23cdds')
         ]);
 
         $code = factory(\App\Droit\Code\Entities\Code::class)->create(['code' => 'cindy']);
@@ -82,6 +82,11 @@ class CodeTest extends TestCase
             'id'   => $code->id,
             'used' => 1
         ]);
+
+        $arret = factory(\App\Droit\Arret\Entities\Arret::class)->create();
+        $response = $this->get('arret/'.$arret);
+
+        $response->assertStatus(200);
 
     }
 }

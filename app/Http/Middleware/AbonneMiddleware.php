@@ -23,10 +23,6 @@ class AbonneMiddleware
      */
     public function handle($request, Closure $next)
     {
-        echo '<pre>';
-        print_r($this->code->active(\Auth::user()->id));
-        echo '</pre>';
-        exit;
         if((\Auth::user()->role == 'admin' || \Auth::user()->role == 'invite')) {
             return $next($request);
         }

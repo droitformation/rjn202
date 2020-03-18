@@ -108,6 +108,14 @@ class SearchController extends Controller {
         return $this->convertAutocompleteLoi($lois);
     }
 
+    public function notes(Request $request)
+    {
+        // loi_id, cote
+        $results = $this->disposition->newsearch(['loi_id' => $request->input('loi_id'), 'article' => $request->input('article')]);
+
+        return response()->json($results);
+    }
+
     public function convertAutocompleteLoi($results){
 
         if(!$results->isEmpty())

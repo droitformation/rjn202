@@ -14,7 +14,16 @@ class LoiEloquent implements LoiInterface{
 
     public function getAll(){
 
-        return $this->loi->with(array('dispositions'))->orderBy('sigle', 'ASC')->get();
+        return $this->loi->with(['dispositions'])->orderBy('sigle', 'ASC')->get();
+    }
+
+    public function getAllSigle(){
+
+        return $this->loi->with(['dispositions','dispositions.disposition_pages'])
+            ->whereNotNull('sigle')
+            ->where('sigle','!=','Accord')
+            ->orderBy('sigle', 'ASC')
+            ->get();
     }
 
     public function search($terms)
@@ -51,7 +60,7 @@ class LoiEloquent implements LoiInterface{
             {
                 $query->orderBy('cote', 'ASC');
 
-            }))->findOrFail($id);
+            },'dispositions.disposition_pages'))->findOrFail($id);
     }
 
     public function findSigle($id){

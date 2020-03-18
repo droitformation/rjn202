@@ -14,7 +14,7 @@ class DispositionEloquent implements DispositionInterface{
 
     public function getAll(){
 
-        return $this->disposition->with(['disposition_pages'])->get();
+        return $this->disposition->with(['loi','disposition_pages'])->get();
     }
 
     public function getVolumePage($volume,$page){

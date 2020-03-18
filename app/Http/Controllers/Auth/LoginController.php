@@ -119,11 +119,6 @@ class LoginController extends Controller
 
         if($this->attemptLogin($request))
         {
-            echo '<pre>';
-            print_r($code);
-            echo '</pre>';
-            exit;
-
             $this->code->markUsed($code->id,\Auth::user()->id);
 
             return redirect()->intended('/')->with(['status' => 'success', 'message' => 'Votre compte sur rjne.ch est maintenant actif.']);

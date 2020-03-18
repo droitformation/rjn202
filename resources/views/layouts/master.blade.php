@@ -76,7 +76,7 @@
             @include('partials.message')
             <!-- / header -->
 
-            <div class="row container-row">
+            <div class="row container-row" id="app">
                 <!-- Contenu -->
                 @yield('content')
                 <!-- Fin contenu -->
@@ -97,5 +97,6 @@
         });
 
     </script>
+    <script src="<?php echo asset('js/app.js');?>?{{ rand(1,10000) }}"></script>
     </body>
 </html>

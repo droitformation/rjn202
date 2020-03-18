@@ -40,8 +40,6 @@ $factory->define(App\Droit\User\Entities\Role::class, function (Faker\Generator 
 
 
 $factory->define(App\Droit\Arret\Entities\Arret::class, function (Faker\Generator $faker) {
-    static $password;
-
     return [
         'pid'         => 1,
         'designation' => $faker->sentence(10),
@@ -58,5 +56,85 @@ $factory->define(App\Droit\Arret\Entities\Arret::class, function (Faker\Generato
         'droit'       => null,
         'conclusion'  => null,
         'note'        => null,
+    ];
+});
+
+$factory->define(App\Droit\Chronique\Entities\Chronique::class, function (Faker\Generator $faker) {
+    return [
+        'pid'          => 1,
+        'domain_id'    => 1,
+        'sorting'      => 1,
+        'volume_id'    => 6,
+        'page'         => $faker->randomNumber(3),
+        'pub_date'     => $faker->dateTime,
+        'titre'        => $faker->name,
+        'faits'        => null,
+        'sommaire'     => $faker->text(300),
+        'commentaires' => $faker->sentence(10),
+        'citations'    => null,
+    ];
+});
+
+$factory->define(App\Droit\Disposition\Entities\Disposition::class, function (Faker\Generator $faker) {
+    return [
+        'volume_id'    => 6,
+        'page'         => $faker->randomNumber(3),
+        'loi_id'       => $faker->randomNumber(3),
+        'cote'         => $faker->name,
+        'content'      => null,
+        'subdivision'  => null,
+    ];
+});
+
+$factory->define(App\Droit\Disposition\Entities\Disposition_page::class, function (Faker\Generator $faker) {
+    return [
+        'volume_id'      => 6,
+        'page'           => $faker->randomNumber(3),
+        'alinea'         => $faker->name,
+        'chiffre'        => $faker->name,
+        'lettre'         => $faker->name,
+        'disposition_id' => 1,
+    ];
+});
+
+$factory->define(App\Droit\Domain\Entities\Domain::class, function (Faker\Generator $faker) {
+    return [
+        'title'   => $faker->name,
+        'droit'   => 1,
+        'sorting' => 1,
+    ];
+});
+
+$factory->define(App\Droit\Loi\Entities\Loi::class, function (Faker\Generator $faker) {
+    return [
+        'name'    => $faker->name,
+        'sigle'   => $faker->name,
+        'droit' => 1,
+    ];
+});
+
+$factory->define(App\Droit\Matiere\Entities\Matiere::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->name,
+    ];
+});
+
+$factory->define(App\Droit\Matiere\Entities\Matiere_note::class, function (Faker\Generator $faker) {
+    return [
+        'matiere_id'     => 6,
+        'volume_id'      => 6,
+        'content'        => $faker->name,
+        'page'           => $faker->randomNumber(3),
+        'domaine'        => $faker->name,
+        'confer_externe' => $faker->name,
+        'confer_interne' => $faker->name,
+    ];
+});
+
+$factory->define(App\Droit\Matiere\Entities\Matiere_note::class, function (Faker\Generator $faker) {
+    return [
+        'note_id'     => 6,
+        'volume_id'   => 6,
+        'page'        => $faker->randomNumber(3),
     ];
 });

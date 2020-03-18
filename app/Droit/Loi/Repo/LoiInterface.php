@@ -3,6 +3,7 @@
 interface LoiInterface {
 
     public function getAll();
+    public function getAllSigle();
     public function find($data);
     public function findSigle($id);
     public function create(array $data);
