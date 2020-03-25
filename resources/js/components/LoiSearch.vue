@@ -1,69 +1,55 @@
 <template>
     <div class="container">
+
         <div class="row">
             <div class="col-md-4 col-xs-5 col-search-md">
-                <select data-placeholder="Loi" class="chosen-vue" name="loi">
-                    <optgroup v-for="(instance,index) in instances" :label="droit(index)">
-                        <option v-for="loi in instance" :value="loi.id">{{ loi.sigle }}</option>
-                    </optgroup>
-                </select>
+                <Select2 v-model="loi_id" :options="instances" @change="selectedLoi($event)" @select="selectedLoi($event)" :settings="{ placeholder: 'Choisir la loi' }" />
+            </div>
 
-            </div>
             <div class="form-group col-md-2 col-small col-search">
-                <select v-if="dispositions" data-placeholder="Article" class="chosen-vue2" name="article">
-                    <option v-for="(disposition,art) in dispositions" :value="art">Art. {{ art }}</option>
-                </select>
-                {{ notes }}
+                <Select2 v-model="article" :options="dispositions" @change="selectedArticle($event)" @select="selectedArticle($event)" :settings="{ placeholder: 'Choisir l\'article' }" />
+            </div>
 
-            </div>
             <div class="form-group col-md-2 col-small col-search">
-                <input type="text" class="form-control search_input" name="alinea" id="select_alinea" placeholder="Alinéa">
+                <Select2 v-if="notes.length" v-model="selected" :options="notes" @change="selectedSubdivision($event)" @select="selectedSubdivision($event)" :settings="{ placeholder: 'Choisir la subdivision' }"/>
             </div>
-            <div class="form-group col-md-2 col-small col-search">
-                <input type="text" class="form-control search_input" name="lettre" id="select_lettre" placeholder="Lettre">
+
+            <input type="hidden" :value="loi_id" name="loi">
+            <input type="hidden" :value="article" name="article">
+
+            <div v-if="model">
+                <input type="hidden" v-if="model.alinea" :value="model.alinea" name="alinea">
+                <input type="hidden" v-if="model.chiffre" :value="model.chiffre" name="chiffre">
+                <input type="hidden" v-if="model.lettre" :value="model.lettre" name="lettre">
             </div>
-            <div class="form-group col-md-2 col-small col-search">
-                <input type="text" class="form-control search_input" name="chiffre" id="select_chiffre" placeholder="Chiffre">
-            </div>
-            <button type="submit" class="btn btn-danger">OK</button>
+
+            <button type="submit" class="btn btn-danger">Voir</button>
         </div>
     </div>
 </template>
-
 <script>
+    import Select2 from 'v-select2-component';
+
     export default {
         props: ['lois','articles'],
         data(){
             return{
                 url: location.protocol + "//" + location.host+"/",
                 instances: this.lois,
-                dispositions:null,
+                dispositions:[],
+                selected:null,
                 loi_id:null,
                 article:null,
-                notes:null
+                notes:[],
+                model:[],
             }
         },
+        components: {Select2},
         mounted() {
             console.log('Component mounted.');
-            this.initialize();
         },
-        computed: {
-
-        },
+        computed: {},
         methods: {
-            initialize: function () {
-
-                let self = this;
-
-                this.$nextTick(function(){
-                    $(".chosen-vue").prepend("<option value='' selected='selected'>Choisir la Loi</option>");
-                    $('.chosen-vue').chosen({ width:"95%"});
-                    $(".chosen-vue").on('change', function(event, params) {
-                        self.dispositions = null;
-                        self.selectedLoi($(this).val());
-                    });
-                });
-            },
             droit(id){
                 if(id == 1){
                     return 'Droit fédéral';
@@ -75,31 +61,30 @@
                     return 'Droit international';
                 }
             },
-            selectedLoi(loi){
-                let articles = this.articles[loi];
-                this.dispositions = articles;
-                this.loi_id = loi;
-
+            selectedLoi(){
                 let self = this;
 
-                this.$nextTick(function(){
-
-                    $(".chosen-vue2").prepend("<option value='' selected='selected'>Choisir l'article</option>");
-                    $('.chosen-vue2').chosen({ width:"95%"});
-                    $(".chosen-vue2").on('change', function(event, params) {
-                        self.selectedArticle($(this).val());
-                    });
-
-                });
-                console.log(articles);
+                axios.post(this.url +'ajax/articles', { loi_id:this.loi_id }).then(function (response) {
+                    self.dispositions = response.data;
+                }).catch(function (error) { console.log(error);});
             },
-            selectedArticle(cote){
+            selectedArticle(){
                 let self = this;
-                axios.post(this.url +'ajax/notes', { loi:this.loi_id, article: cote }).then(function (response) {
-                    console.log(response);
+
+                axios.post(this.url +'ajax/notes', { loi:this.loi_id, article: this.article }).then(function (response) {
                     self.notes = response.data;
                 }).catch(function (error) { console.log(error);});
+            },
+            selectedSubdivision(event){
+               this.model = event.other;
             }
         }
     }
 </script>
+<style>
+    .select2-container .select2-selection--single {
+        height: 32px !important;
+        border: 1px solid #CCCCCC;
+    }
+</style>
+

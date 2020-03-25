@@ -21,6 +21,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo asset('site_assets/css/loginbox.css');?>" media="screen" />
         <link rel="stylesheet" type="text/css" href="<?php echo asset('site_assets/css/app.css');?>" media="screen" />
         <link rel="stylesheet" type="text/css" href="<?php echo asset('site_assets/css/filters.css');?>" media="screen" />
+        <link rel="stylesheet" type="text/css" href="<?php echo asset('site_assets/css/select2.min.css');?>" media="screen" />
 
         <!-- Javascript Files
         ================================================== -->
@@ -35,7 +36,7 @@
         <script src="<?php echo asset('site_assets/js/utils/SearchHighlight.pack.js');?>"></script>
         <script src="<?php echo asset('site_assets/js/landing.js');?>"></script>
         <script src="<?php echo asset('site_assets/js/popup.js');?>"></script>
-        <script src="<?php echo asset('site_assets/js/search.js');?>"></script>
+        <script src="<?php echo asset('site_assets/js/select2.full.min.js');?>"></script>
 
         <!--[if lte IE 9]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -97,6 +98,7 @@
         });
 
     </script>
+
     <script src="<?php echo asset('js/app.js');?>?{{ rand(1,10000) }}"></script>
     </body>
 </html>

@@ -89,7 +89,31 @@ class HomeController extends Controller {
             ];
         });
 
-        return view('frontend.index')->with(['lois' => $lois->groupBy('droit'), 'articles' => $articles]);
+        $droits = [1 => 'Droit fédéral', 2 => 'Droit cantonal', 3 => 'Droit international'];
+
+        $lois = $lois->sortBy('droit')->groupBy(function ($item, $key) use ($droits) {
+            return isset($droits[$item->droit]) ? $droits[$item->droit] : '';
+        })->map(function ($lois,$key) use ($droits) {
+            $droits = array_flip($droits);
+            return [
+                 'id'   => $droits[$key] ?? '',
+                 'text' => $key,
+                 'children' => $lois->map(function ($article) {
+                     return [
+                         'id' => $article->id,
+                         'text' => $article->sigle,
+                     ];
+                 })->toArray()
+            ];
+
+        })->values();
+
+/*        echo '<pre>';
+        print_r($lois);
+        echo '</pre>';
+        exit;*/
+
+        return view('frontend.index')->with(['lois' => $lois, 'articles' => $articles]);
     }
 
     /**

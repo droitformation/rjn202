@@ -108,26 +108,57 @@ class SearchController extends Controller {
         return $this->convertAutocompleteLoi($lois);
     }
 
+    public function articles(Request $request)
+    {
+        $loi = $this->loi->find($request->input('loi_id'));
+
+        $articles = $loi->dispositions->unique('cote')->map(function ($article) {
+            return [
+                'id'   => $article->cote,
+                'text' => 'Art. '.$article->cote,
+            ];
+        })->toArray();
+
+        return response()->json($articles);
+    }
+
     public function notes(Request $request)
     {
         // loi_id, cote
         $results = $this->disposition->newsearch(['loi_id' => $request->input('loi_id'), 'article' => $request->input('article')]);
+
+        $results = $results->pluck('disposition_pages')
+            ->flatten(1)
+            ->unique(function ($item) {
+                return $item->resume;
+            })
+            ->map(function ($disposition) {
+                return [
+                    'id'    => $disposition->id,
+                    'text'  => $disposition->resume,
+            /* */   'other' => [
+                    'alinea'    => $disposition->alinea,
+                    'chiffre'   => $disposition->chiffre,
+                    'lettre'    => $disposition->lettre,
+                    'page'      => $disposition->page,
+                    'volume_id' => $disposition->volume_id,
+                ]
+            ];
+        })->reject(function ($item) {
+            return empty($item['text']);
+        })->values();
 
         return response()->json($results);
     }
 
     public function convertAutocompleteLoi($results){
 
-        if(!$results->isEmpty())
-        {
-            foreach($results as $result)
-            {
+        if(!$results->isEmpty()) {
+            foreach($results as $result) {
                 $data[] = ['label' => $result->name , 'idloi' => $result->id, 'sigle' => $result->sigle , 'value' =>  '"'.$result->name.'"'];
             }
         }
 
         return ($data ? $data : []);
     }
-
-
 }

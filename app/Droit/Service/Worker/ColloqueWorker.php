@@ -13,7 +13,7 @@ class ColloqueWorker{
         $this->client  = new \GuzzleHttp\Client([ 'verify' => false ]);
 
         $environment = app()->environment();
-        $this->base_url = ($environment == 'local' ? 'https://shop.local' : 'https://www.publications-droit.ch');
+        $this->base_url = ($environment == 'local' ? 'https://shop.test' : 'https://www.publications-droit.ch');
     }
 
     public function getColloques(){

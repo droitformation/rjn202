@@ -7,6 +7,8 @@ Route::get('colloque', 'Frontend\HomeController@colloque');
 
 // Contact
 Route::post('sendMessage', 'Frontend\HomeController@sendMessage');
+Route::post('ajax/articles', 'Frontend\SearchController@articles');
+Route::post('ajax/notes', 'Frontend\SearchController@notes');
 
 Route::group(['middleware' => ['auth','abonne']], function()
 {
@@ -34,8 +36,6 @@ Route::group(['middleware' => ['auth','abonne']], function()
     // Search routes
     Route::match(['get', 'post'], 'search','Frontend\SearchController@index');
     Route::match(['get', 'post'], 'terms', 'Frontend\SearchController@searching');
-
-    Route::post('ajax/notes', 'Frontend\SearchController@notes');
 
 });
 
@@ -89,16 +89,74 @@ Route::post('postActivate', 'Auth\LoginController@postActivate');
 // Test routes for development
 Route::get('testing', function()
 {
+
+  /*  $model = new \App\Droit\Matiere\Entities\Matiere();
+    $model_note = \App::make('App\Droit\Matiere\Repo\MatiereNoteInterface');
+    $model_note_page = new \App\Droit\Matiere\Entities\Matiere_note_page();
+
+    $matieres = $model_note->getAll();
+
+     $fillable = ['matiere_id','volume_id','content','page','domaine','confer_externe','confer_interne'];
+
+    $matieres = $matieres->groupBy(function ($item, $key) {
+        return $item->matiere->title;
+    })->mapWithKeys(function ($matiere, $key) {
+        return [
+            $key => $matiere->map(function ($note, $key) use($matiere) {
+                return[
+                    'content'        => $note->content,
+                    'page'           => $note->page,
+                    'volume_id'      => $note->volume_id,
+                    'domaine'        => $note->domaine,
+                    'confer_externe' => $note->confer_externe,
+                    'confer_interne' => $note->confer_interne,
+                    'notes' => $note->note_pages
+                ];
+            }),
+        ];
+    });
+
+
+
+    echo '<pre>';
+    print_r($matieres);
+    echo '</pre>';
+    exit;
     // $model = \App::make('App\Droit\Disposition\Repo\DispositionInterface');
     //$result = $model->newsearch(['loi' => 10, 'article' => 23]);
-
     $model = \App::make('App\Droit\Loi\Repo\LoiInterface');
     $l = $model->find(13);
 
-/*    echo '<pre>';
-    print_r($l->dispositions);
-    echo '</pre>';
-    exit;*/
+    $model = \App::make('App\Droit\Disposition\Repo\DispositionInterface');
+
+    $results = $model->newsearch(['loi_id' => 203, 'article' => 8]);
+
+    $results = $results->pluck('disposition_pages')
+        ->flatten(1)
+        ->unique(function ($item) {
+            return $item->resume;
+        })
+        ->map(function ($disposition) {
+        return [
+            'id'    => $disposition->id,
+            'text'  => $disposition->resume
+              'other' => [
+                    'alinea'    => $disposition->alinea,
+                    'chiffre'   => $disposition->chiffre,
+                    'lettre'    => $disposition->lettre,
+                    'page'      => $disposition->page,
+                    'volume_id' => $disposition->volume_id,
+                ]
+        ];
+    })->reject(function ($item) {
+        return empty($item['text']);
+    })->values()->toArray();
+
+
+  echo '<pre>';
+        print_r($results);
+        echo '</pre>';
+        exit;
 
     $lois = $model->getAllSigle();
 
@@ -128,50 +186,66 @@ Route::get('testing', function()
     echo '<pre>';
 
     print_r($grouped);
-    echo '</pre>';exit();
+    echo '</pre>';exit();*/
 
     $model = new \App\Droit\Matiere\Entities\Matiere();
     $model_note = new \App\Droit\Matiere\Entities\Matiere_note();
     $model_note_page = new \App\Droit\Matiere\Entities\Matiere_note_page();
 
-    $results = \Excel::load(storage_path('app/public/Matieres_2018.xlsx'), function($reader) {
-        $reader->ignoreEmpty();
-        $reader->setSeparator('');
-    })->get();
+    $results = \Excel::toArray(new \App\Imports\MatiereImport, storage_path('app/public/Matieres_2019.xlsx'));
+
+    $results = collect($results)->map(function ($matiere) {
+        return collect($matiere)->map(function ($row) {
+            return [
+                'matiere_id'     => $row[0] ?? null,
+                'content'        => $row[1] ?? null,
+                'page'           => $row[2] ?? null,
+                'volume_id'      => $row[3] ?? null,
+                'domaine'        => $row[4] ?? null,
+                'confer_externe' => $row[5] ?? null,
+                'confer_interne' => $row[6] ?? null,
+            ];
+        });
+    })->flatten(1);
+
 
     foreach ($results as $i => $result){
-        $found = $model->where('title', 'LIKE', $result['matiere'])->get();
+
+      /*  $found = $model->where('title', 'LIKE', $result['matiere'])->get();
 
         if(!$found->isEmpty()){
             $matiere = $found->first();
         }
         else{
             $matiere = $model->create(['title' => $result['matiere']]);
-        }
+        }*/
 
-        $note = $model_note->create([
-            'matiere_id'     => $matiere->id,
-            'content'        => isset($result['content']) && !empty($result['content']) ? $result['content'] : '',
-            'volume_id'      => 11,
-            'page'           => isset($result['page']) && !empty($result['page']) ? $result['page'] : null,
-            'domain'         => isset($result['domain']) && !empty($result['domain']) ? $result['domain'] : null,
-            'confer_interne' => isset($result['confer_interne']) && !empty($result['confer_interne']) ? $result['confer_interne'] : null,
-            'confer_externe' => isset($result['confer_externe']) && !empty($result['confer_externe']) ? $result['confer_externe'] : null,
-        ]);
+        $data = [
+              'matiere_id'     => $result['matiere_id'],
+              'content'        => isset($result['content']) && !empty($result['content']) ? $result['content'] : '',
+              'volume_id'      => 12,
+              'page'           => isset($result['page']) && !empty($result['page']) ? $result['page'] : null,
+              'domain'         => isset($result['domain']) && !empty($result['domain']) ? $result['domain'] : null,
+              'confer_interne' => isset($result['confer_interne']) && !empty($result['confer_interne']) ? $result['confer_interne'] : null,
+              'confer_externe' => isset($result['confer_externe']) && !empty($result['confer_externe']) ? $result['confer_externe'] : null,
+          ];
+
+  /*      echo '<pre>';
+        print_r($data);
+        echo '</pre>';*/
+
+       $note = $model_note->create($data);
 
         if(isset($result['page']) && !empty($result['page'])){
 
             $note_page = $model_note_page->create([
                 'note_id'        => $note->id,
-                'volume_id'      => 11,
+                'volume_id'      => 12,
                 'page'           => $result['page'],
             ]);
-
         }
 
     }
-
-
 
     /*
         \App\Droit\User\Entities\User::create(array(
@@ -181,7 +255,6 @@ Route::get('testing', function()
         ));
     */
 
-    // App\Droit\Matiere\Repo\MatiereInterface
 
 });
 

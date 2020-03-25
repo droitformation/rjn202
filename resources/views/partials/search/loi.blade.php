@@ -1,4 +1,9 @@
-<loi-search :lois="{{ $lois }}" :articles="{{ $articles }}"></loi-search>
+{{--
+<form class="form-inline" role="form" method="POST" action="{{ url('search') }}">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <loi-search :lois="{{ $lois }}" :articles="{{ $articles }}"></loi-search>
+</form>
+--}}
 
 <form class="form-inline" role="form" method="POST" action="{{ url('search') }}">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
