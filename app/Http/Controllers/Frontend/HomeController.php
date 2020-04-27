@@ -312,9 +312,9 @@ class HomeController extends Controller {
     {
         $data = ['email' => $request->input('email'), 'nom' => $request->input('nom'), 'remarque' => $request->input('remarque')];
 
-        \Mail::send('emails.contact', $data , function($message)
+        \Mail::send('emails.contact', $data , function($message) use ($data)
         {
-            $message->to('info@rjne.ch', 'RJN')->subject('Message depuis le site www.rjne.ch');
+            $message->from($data['email'])->to('info@rjne.ch', 'RJN')->subject('Message depuis le site www.rjne.ch')->cc('cindy.leschaud@gmail.com');
         });
 
         return redirect('/')->with(array('status' => 'success', 'message' => '<strong>Merci pour votre message</strong><br/>Nous vous contacterons dès que possible.'));
