@@ -16,6 +16,7 @@ use App\Http\Requests\SendMessageRequest;
 use App\Droit\Service\Worker\PageInterface;
 use App\Droit\Disposition\Repo\DispositionInterface;
 use App\Droit\Critique\Repo\CritiqueInterface;
+use App\Jobs\SendSlide;
 
 class HomeController extends Controller {
 
@@ -310,15 +311,9 @@ class HomeController extends Controller {
      */
     public function sendMessage(SendMessageRequest $request)
     {
-        $data = ['email' => $request->input('email'), 'nom' => $request->input('nom'), 'remarque' => $request->input('remarque')];
-
-        \Mail::send('emails.contact', $data , function($message) use ($data)
-        {
-            $message->from($data['email'])->to('info@rjne.ch', 'RJN')->subject('Message depuis le site www.rjne.ch')->cc('cindy.leschaud@gmail.com');
-        });
+        \Mail::to('info@rjne.ch')->send(new \App\Mail\SendMessage($request->input('email'),$request->input('nom'),$request->input('remarque')));
 
         return redirect('/')->with(array('status' => 'success', 'message' => '<strong>Merci pour votre message</strong><br/>Nous vous contacterons dès que possible.'));
-
     }
 
     /**
