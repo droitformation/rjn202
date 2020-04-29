@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        'Msurguy\Honeypot\HoneypotServiceProvider',
         /*
          * Application Service Providers...
          */
@@ -230,6 +230,7 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Str'       => 'Illuminate\Support\Str',
         'Excel'      => Maatwebsite\Excel\Facades\Excel::class,
+        'Honeypot' => 'Msurguy\Honeypot\HoneypotFacade'
     ],
 
 ];

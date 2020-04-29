@@ -26,6 +26,7 @@
                 <!-- form start -->
 
                 <form method="post" action="{{ url('sendMessage') }}" class="form-horizontal form-validation">
+                    {!! Honeypot::generate('my_name', 'my_time') !!}
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Nom</label>
