@@ -52,7 +52,8 @@ class CodeTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'name'  => 'Cindy Leschaud',
-            'email' => 'info@leschaud.ch'
+            'email' => 'info@leschaud.ch',
+            'role'  => 'abonne',
         ]);
 
         $this->assertDatabaseHas('codes', [
