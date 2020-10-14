@@ -18,7 +18,5 @@ class AdminMiddleware {
         }
 
 		return redirect()->to('/');
-		
 	}
-
 }
