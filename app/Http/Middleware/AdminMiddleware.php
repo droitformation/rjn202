@@ -13,11 +13,12 @@ class AdminMiddleware {
 	 */
 	public function handle($request, Closure $next)
 	{
-        if(\Auth::user()->role == 'abonne') {
-            return redirect()->to('/');
+        if(\Auth::user()->role == 'admin') {
+            return $next($request);
         }
 
-		return $next($request);
+		return redirect()->to('/');
+		
 	}
 
 }
