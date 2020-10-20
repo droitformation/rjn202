@@ -408,16 +408,14 @@ class Helper {
 
     public function dispatchLoi($lois){
 
-        if(isset($dispatch) && is_array($dispatch)){
-            foreach($lois as $loi) {
-                $dispatch[$loi->droit][] = $loi;
-            }
-
-            ksort($dispatch);
-
-            return $dispatch;
+        $dispatch = [];
+        foreach($lois as $loi) {
+            $dispatch[$loi->droit][] = $loi;
         }
 
+        ksort($dispatch);
+
+        return $dispatch;
     }
 
     public function dispatchDomaine($doctrines,$domaines = null){

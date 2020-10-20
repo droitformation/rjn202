@@ -214,7 +214,6 @@ class HomeController extends Controller {
      */
     public function lois()
     {
-
         $lois = $this->loi->getAll();
         $lois = $this->helper->dispatchLoi($lois);
 
