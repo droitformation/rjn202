@@ -64,7 +64,7 @@ class AdminComposer
                 'label' => $loi->title,
             ];
         });
-     
+
         $view->with('list_matieres', $matieres);
         $view->with('list_volumes', $volumes);
         $view->with('list_lois', $lois);

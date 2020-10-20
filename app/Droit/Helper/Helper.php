@@ -408,25 +408,28 @@ class Helper {
 
     public function dispatchLoi($lois){
 
-        foreach($lois as $loi) {
-            $dispatch[$loi->droit][] = $loi;
+        if(isset($dispatch) && is_array($dispatch)){
+            foreach($lois as $loi) {
+                $dispatch[$loi->droit][] = $loi;
+            }
+
+            ksort($dispatch);
+
+            return $dispatch;
         }
 
-        ksort($dispatch);
-
-        return $dispatch;
     }
 
     public function dispatchDomaine($doctrines,$domaines = null){
 
-        foreach($doctrines as $doctrine)
-        {
+        $dispatch = [];
+
+        foreach($doctrines as $doctrine) {
             $dispatch[$doctrine->domain_id][$doctrine->volume_id][] = $doctrine;
         }
 
-        if(!empty($dispatch))
-        {
-
+        if(!empty($dispatch)) {
+            $dispatched = [];
             foreach($dispatch as $domain => $list)
             {
                 krsort($dispatch[$domain]);

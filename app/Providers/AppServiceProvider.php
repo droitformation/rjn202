@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer(['frontend.*'], 'App\Http\ViewComposers\RjnComposer');
         view()->composer(['admin.*'], 'App\Http\ViewComposers\AdminComposer');
+       // view()->composer(['admin.arrets.show'], 'App\Http\ViewComposers\LoiComposer');
     }
 
     /**

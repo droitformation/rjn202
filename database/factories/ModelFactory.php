@@ -138,3 +138,11 @@ $factory->define(App\Droit\Matiere\Entities\Matiere_note::class, function (Faker
         'page'        => $faker->randomNumber(3),
     ];
 });
+
+$factory->define(App\Droit\Rjn\Entities\Rjn::class, function (Faker\Generator $faker) {
+    return [
+        'title' => 'RJN',
+        'publication_at' => \Carbon\Carbon::today()->toDateString()
+    ];
+});
+

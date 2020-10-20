@@ -43,7 +43,9 @@ class RjnComposer
 
         $lois = $this->loi->getAll();
 
-        $view->with('list_lois', $lois->pluck('sigle','id')->all());
+        $view->with('list_lois', array_filter($lois->pluck('sigle','id')->all()));
+
+
 
         $lois = $this->helper->dispatchLoi($lois);
 

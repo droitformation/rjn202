@@ -12,6 +12,7 @@ class FrontendTest extends TestCase
     public function testHomepage()
     {
         $user = factory(\App\Droit\User\Entities\User::class)->create(['role' => 'admin']);
+        $rjn  = factory(\App\Droit\Rjn\Entities\Rjn::class)->create();
 
         $this->actingAs($user);
 
