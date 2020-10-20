@@ -36,7 +36,7 @@
 
                     @foreach($chroniques as $domain_id => $chron)
 
-                        <h4>{{ $domains_doctrine[$domain_id] }}</h4>
+                        <h4>{{ $domains_doctrine[$domain_id] ?? '' }}</h4>
 
                         @foreach($chron as $annee => $annees)
                             <div class="row">
