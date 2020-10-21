@@ -80,7 +80,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="message" class="col-sm-3 control-label">Références termes</label>
+                    <label for="message" class="col-sm-3 control-label">Références termes pour recherche</label>
                     <div class="col-sm-9">
                         <loi
                             :lois="{{ $list_lois }}"
