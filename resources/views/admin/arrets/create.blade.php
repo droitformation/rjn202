@@ -70,12 +70,12 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+       {{--         <div class="form-group">
                     <label for="message" class="col-sm-3 control-label">Références</label>
                     <div class="col-sm-9">
                         {!! Form::text('cotes', '' , array('class' => 'form-control') ) !!}
                     </div>
-                </div>
+                </div>--}}
 
                 <div class="form-group">
                     <label for="message" class="col-sm-3 control-label">Sommaire</label>

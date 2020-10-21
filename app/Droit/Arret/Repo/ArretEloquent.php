@@ -114,7 +114,7 @@ class ArretEloquent implements ArretInterface{
             'domain_id'   => $data['domain_id'],
             'page'        => $data['page'],
             'pub_date'    => $data['pub_date'],
-            'cotes'       => $data['cotes'],
+            'cotes'       => $data['cotes'] ?? '',
             'sommaire'    => $data['sommaire'],
             'portee'      => $data['portee'],
             'faits'       => (isset($data['faits']) ? $data['faits'] : ''),
@@ -142,13 +142,13 @@ class ArretEloquent implements ArretInterface{
         }
 
         return $arret;
-		
+
 	}
-	
+
 	public function update(array $data){
 
         $arret = $this->arret->findOrFail($data['id']);
-		
+
 		if( ! $arret )
 		{
 			return false;
@@ -172,7 +172,7 @@ class ArretEloquent implements ArretInterface{
         {
             $arret->arret_groupes()->detach();
         }
-		
+
 		return $arret;
 	}
 
