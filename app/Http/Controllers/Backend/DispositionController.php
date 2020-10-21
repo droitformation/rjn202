@@ -24,7 +24,7 @@ class DispositionController extends Controller {
      */
     public function __construct(DispositionInterface $disposition,LoiInterface $loi,RjnInterface $rjn)
     {
- 
+
         $this->helper      = new \App\Droit\Helper\Helper;
         $this->disposition = $disposition;
         $this->loi         = $loi;
@@ -99,7 +99,7 @@ class DispositionController extends Controller {
         ]);
 
         $disposition = $this->disposition->create([
-            'loi_id'    => $data_disposition['loi_id'],
+            'loi_id'    => $data_disposition['loi_id']['value'],
             'content'   => "",
             'volume_id' => $data_disposition['volume_id'],
             'page'      => $data_disposition['page'],
@@ -207,7 +207,7 @@ class DispositionController extends Controller {
         $oldDis = $this->disposition->find($id);
         $loi_id = $oldDis->loi_id;
         $this->disposition->delete($id);
-        
+
         if($request->ajax()){
             $dispositions = $this->disposition->getVolumePage($oldDis->volume_id,$oldDis->page);
             $dispositions = !$dispositions->isEmpty() ? $dispositions->map(function ($disposition, $key) {

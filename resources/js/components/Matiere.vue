@@ -7,7 +7,7 @@
                 <div class="col-md-12 dropdown-vue">
                     <label class="control-label">Matière</label>
 
-                    <v-select :v-model="newNote.matiere_id" :options="listMatieres" :onChange="what"></v-select>
+                    <v-select v-model="newNote.matiere_id" :options="listMatieres" :onChange="what"></v-select>
 
                     <p class="margUp"><a @click="showAddMatiere" class="text-info addBtn">Pas dans la liste? Ajouter une matière</a></p>
 
@@ -157,7 +157,7 @@
             },
             what: function(val){
 
-                this.newNote.matiere_id = val.value;
+               // this.newNote.matiere_id = val.value;
                 console.log(JSON.stringify(this.newNote));
             },
             showAddMatiere: function(){
@@ -186,7 +186,7 @@
                 var self = this;
 
                 axios.post('/admin/note', self.newNote).then(function (response) {
-                    console.log(JSON.stringify(response.data.notes));
+                     console.log(JSON.stringify(response.data.notes));
                      self.updateNotes(response.data.notes);
                 })
                 .catch(function (error) { console.log(error); });
