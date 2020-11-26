@@ -88,7 +88,10 @@ class LoginController extends Controller
         }
 
         // Validate account credetials
-        $this->validateLogin($request);
+        $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
 
         // Create new user
         $user = $this->user->create($request->all());
@@ -100,22 +103,6 @@ class LoginController extends Controller
         \Auth::login($user);
 
         return redirect()->intended('/')->with(['status' => 'success', 'message' => 'Votre compte sur rjne.ch est maintenant actif.']);
-    }
-
-    /**
-     * Validate the user login request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return void
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    protected function validateLogin(Request $request)
-    {
-        $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
     }
 
     /**
