@@ -76,7 +76,15 @@ class NoteController extends Controller {
 	 */
 	public function store(CreateNote $request)
 	{
-        $note = $this->note->create($request->all());
+        $note = $this->note->create([
+            'matiere_id'     => $request->input('matiere_id.value'),
+            'content'        => $request->input('content'),
+            'page'           => $request->input('page'),
+            'volume_id'      => $request->input('volume_id'),
+            'domaine'        => $request->input('domaine',null),
+            'confer_externe' => $request->input('confer_externe',null),
+            'confer_interne' => $request->input('confer_interne',null),
+        ]);
 
 		if($request->ajax()){
 			$notes = $this->note->getByVolumePage($note->volume_id,$note->page);
@@ -133,7 +141,7 @@ class NoteController extends Controller {
 	{
 		$oldnote    = $this->note->find($id);
         $matiere_id = $oldnote->matiere_id;
-		
+
         $this->note->delete($id);
 
 		if($request->ajax()){

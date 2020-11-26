@@ -79,6 +79,7 @@ Vue.component('select-2', {
 });
 */
 
+
 const options = {
     apples: 'green',
     bananas: 'yellow',

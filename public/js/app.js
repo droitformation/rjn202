@@ -2039,6 +2039,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2078,10 +2080,7 @@ __webpack_require__.r(__webpack_exports__);
       this.listLois = this.lois;
       this.listDispositions = this.dispositions;
     },
-    what: function what(val) {
-      this.newDisposition.loi_id = val.value;
-      this.selected = val;
-    },
+    what: function what(val) {},
     showAddLoi: function showAddLoi() {
       this.addLoi = true;
     },
@@ -2118,7 +2117,8 @@ __webpack_require__.r(__webpack_exports__);
         self.updateDispositions(response.data.dispositions);
         self.loading = false;
       })["catch"](function (error) {
-        console.log(error);
+        console.log(error.response.data);
+        alert('Erreur:' + error.response.data.message);
       });
     },
     updateDispositions: function updateDispositions(dispositions) {
@@ -2412,7 +2412,7 @@ __webpack_require__.r(__webpack_exports__);
       this.listNotes = this.notes;
     },
     what: function what(val) {
-      this.newNote.matiere_id = val.value;
+      // this.newNote.matiere_id = val.value;
       console.log(JSON.stringify(this.newNote));
     },
     showAddMatiere: function showAddMatiere() {
@@ -2508,7 +2508,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.terms{\n    padding:10px;\n    margin:5px 0;\n    background-color:#f5f5f5;\n}\n.dispositions{\n    margin:15px 0 0 0;\n    padding:0;\n    list-style:none;\n}\n.dispositions li{\n    margin-top: 5px;\n    margin-bottom: 5px;\n    border: 1px solid #ddd;\n    padding: 5px;\n}\n", ""]);
+exports.push([module.i, "\n.terms{\n    padding:10px;\n    margin:5px 0;\n    background-color:#f5f5f5;\n}\n.dispositions{\n    margin:15px 0 0 0;\n    padding:0;\n    list-style:none;\n}\n.dispositions li{\n    margin-top: 5px;\n    margin-bottom: 5px;\n    border: 1px solid #ddd;\n    padding: 5px;\n}\n.vs__dropdown-toggle {\n    background: #fff;\n}\n", ""]);
 
 // exports
 
@@ -38741,13 +38741,13 @@ var render = function() {
             _c("label", { staticClass: "control-label" }, [_vm._v("Loi")]),
             _vm._v(" "),
             _c("v-select", {
-              attrs: { options: _vm.listLois, onChange: _vm.what },
+              attrs: { options: _vm.listLois, input: _vm.what },
               model: {
-                value: _vm.selected,
+                value: _vm.newDisposition.loi_id,
                 callback: function($$v) {
-                  _vm.selected = $$v
+                  _vm.$set(_vm.newDisposition, "loi_id", $$v)
                 },
-                expression: "selected"
+                expression: "newDisposition.loi_id"
               }
             })
           ],
@@ -39251,10 +39251,13 @@ var render = function() {
             _c("label", { staticClass: "control-label" }, [_vm._v("Matière")]),
             _vm._v(" "),
             _c("v-select", {
-              attrs: {
-                "v-model": _vm.newNote.matiere_id,
-                options: _vm.listMatieres,
-                onChange: _vm.what
+              attrs: { options: _vm.listMatieres, onChange: _vm.what },
+              model: {
+                value: _vm.newNote.matiere_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.newNote, "matiere_id", $$v)
+                },
+                expression: "newNote.matiere_id"
               }
             }),
             _vm._v(" "),
@@ -52263,8 +52266,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/rjn2020/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/rjn2020/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/rjn20/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/rjn20/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

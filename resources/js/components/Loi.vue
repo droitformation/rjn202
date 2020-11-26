@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-md-8 dropdown-vue">
                     <label class="control-label">Loi</label>
-                    <v-select v-model="selected" :options="listLois" :onChange="what"></v-select>
+                    <v-select v-model="newDisposition.loi_id" :options="listLois" :input="what"></v-select>
                 </div>
                 <div class="col-md-4">
                     <p class="margUp"><a @click="showAddLoi" class="text-info addBtn">Pas dans la liste?<br/> Ajouter une loi</a></p>
@@ -67,7 +67,6 @@
                     <button class="btn btn-info" @click.prevent="addNewDisposition" type="button">Ajouter</button>
                 </div>
             </div>
-
         </div>
 
     </div>
@@ -91,6 +90,9 @@
         border: 1px solid #ddd;
         padding: 5px;
      }
+    .vs__dropdown-toggle {
+        background: #fff;
+    }
 </style>
 <script>
     import vSelect from "vue-select";
@@ -112,7 +114,7 @@
                 newDisposition:{
                     volume_id: this.volume_id,
                     page: this.page,
-                    loi_id:null,
+                    loi_id: null,
                     article:"",
                     alinea:"",
                     chiffre:"",
@@ -132,10 +134,7 @@
                 this.listLois = this.lois;
                 this.listDispositions = this.dispositions
             },
-            what: function(val){
-                this.newDisposition.loi_id = val.value;
-                this.selected = val;
-            },
+            what: function(val){},
             showAddLoi: function(){
                 this.addLoi = true;
             },
@@ -175,7 +174,11 @@
                      self.updateDispositions(response.data.dispositions);
                      self.loading = false;
                 })
-                .catch(function (error) { console.log(error); });
+                .catch(function (error) {
+                    console.log(error.response.data);
+                    alert('Erreur:' + error.response.data.message);
+
+                });
             },
             updateDispositions: function(dispositions){
                 this.listDispositions = dispositions
