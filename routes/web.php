@@ -85,7 +85,6 @@ Route::get('activate', 'Auth\LoginController@getActivate');
 Route::post('postCode', 'Auth\LoginController@postCode');
 Route::post('postActivate', 'Auth\LoginController@postActivate');
 
-
 // Test routes for development
 Route::get('testing', function()
 {

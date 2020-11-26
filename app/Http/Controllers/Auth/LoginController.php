@@ -44,7 +44,7 @@ class LoginController extends Controller
      */
     public function __construct(AboWorker $abo, UserInterface $user, CodeWorkerInterface $code)
     {
-        $this->middleware('guest')->except('logout','getActivate');
+        $this->middleware('guest')->except(['logout','getActivate','postActivate']);
 
         $this->abo  = $abo;
         $this->code = $code;
