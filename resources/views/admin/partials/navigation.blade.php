@@ -12,7 +12,7 @@
         <li class="<?php echo (Request::is('admin/user/*') || Request::is('admin/user') ? 'active' : '' ); ?>"><a href="{{ url('admin/user')  }}">
                 <i class="fa fa-user"></i> <span>Utilisateurs</span></a>
         </li>
-        <li class="<?php echo (Request::is('admin/code/*') || Request::is('admin/code') ? 'active' : '' ); ?>"><a href="{{ url('admin/code')  }}">
+        <li class="<?php echo (Request::is('admin/code/*') || Request::is('admin/codes') ? 'active' : '' ); ?>"><a href="{{ url('admin/codes')  }}">
                 <i class="fa fa-check-circle"></i> <span>Codes d'accès</span></a>
         </li>
         <li class="divider"></li>
