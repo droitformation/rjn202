@@ -9,7 +9,7 @@
 <!-- start row -->
 <div class="row">
 
-    <div class="col-md-12" id="app">
+    <div class="col-md-6 col-xs-12" id="app">
         <div class="panel panel-midnightblue">
 
             <!-- form start -->
@@ -21,7 +21,7 @@
                 <div class="panel-body event-info">
 
                     <div class="col-sm-2"></div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-9">
 
                         <code-component></code-component>
 
