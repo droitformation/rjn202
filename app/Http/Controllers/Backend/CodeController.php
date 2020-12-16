@@ -14,10 +14,9 @@ class CodeController extends Controller {
         $this->code = $code;
     }
 
-    public function index($year = null)
+    public function index()
     {
-        $year = $year ? $year : date('Y');
-        $codes = $this->code->getAll($year);
+        $codes = $this->code->getAll();
         $years = $this->code->years();
 
         return view('admin.codes.index')->with(['codes' => $codes, 'years' => $years]);
