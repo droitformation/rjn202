@@ -37,10 +37,8 @@ class CodeController extends Controller {
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateCode $request)
     {
-       // $code = $this->code->create($request->all());
-
         $this->code->make($request->input('nbr'),$request->except(['_token','nbr']));
 
         return redirect('admin/code');

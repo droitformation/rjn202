@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateCode extends FormRequest
 {
@@ -28,7 +29,7 @@ class CreateCode extends FormRequest
     public function rules()
     {
         return [
-            'code'     => 'required',
+            'code'     => 'required_if:nbr,1',
             'valid_at' => 'required'
         ];
     }

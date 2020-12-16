@@ -50,6 +50,10 @@ class CodeEloquent implements CodeInterface{
 
     public function make($nbr,$data){
 
+	    if($nbr == 1){
+            return $this->create($data);
+        }
+
         $codes = [];
         $make  = $nbr + ($nbr * 0.1);
 
