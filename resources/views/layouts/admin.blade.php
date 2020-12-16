@@ -14,7 +14,7 @@
     <link rel='stylesheet' type='text/css' href="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css" />
     <link rel="stylesheet" href="<?php echo asset('admin_assets/css/chosen.css');?>">
     <link rel="stylesheet" href="<?php echo asset('admin_assets/css/chosen-bootstrap.css');?>">
-    <link rel="stylesheet" href="<?php echo asset('admin_assets/css/admin.css');?>">
+    <link rel="stylesheet" href="<?php echo asset('admin_assets/css/admin.css');?>?{{ rand(543,23456) }}">
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
 	<!--[if lt IE 9]>
     <link rel="stylesheet" href="<?php echo asset('admin_assets/css/styles.ie8.css');?>">

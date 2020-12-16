@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCode;
-
 use App\Droit\Code\Repo\CodeInterface;
+use Illuminate\Http\Request;
 
 class CodeController extends Controller {
 
@@ -84,4 +84,29 @@ class CodeController extends Controller {
         return redirect('admin/code')->with(array('status' => 'success', 'message' => 'Codee supprimé' ));
     }
 
+    public function addCode(Request $request)
+    {
+        $code = $this->code->valid($request->input('code'));
+
+        if($code){
+            $code = $this->code->update(['id' => $code->id, 'user_id' => $request->input('user_id'), 'used' => 1]);
+
+            return redirect()->back()->with(['status' => 'success', 'message' => 'Code ajouté']);
+        }
+
+        return redirect()->back()->with(['status' => 'danger', 'message' => 'Code non valide']);
+    }
+
+    public function removeCode(Request $request)
+    {
+        $code = $this->code->find($request->input('code_id'));
+
+        if($code){
+            $code = $this->code->update(['id' => $code->id, 'user_id' => null, 'used' => null]);
+
+            return redirect()->back()->with(['status' => 'success', 'message' => 'Code retiré']);
+        }
+
+        return redirect()->back()->with(['status' => 'danger', 'message' => 'Code non valide']);
+    }
 }

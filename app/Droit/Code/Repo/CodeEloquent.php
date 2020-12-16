@@ -26,8 +26,7 @@ class CodeEloquent implements CodeInterface{
     {
         $code = $this->code->where('code','=',$code)->where('valid_at', '>=', date('Y-m-d'))->whereNull('used')->get();
 
-        if(!$code->isEmpty())
-        {
+        if(!$code->isEmpty()) {
             return $code->first();
         }
 
@@ -38,8 +37,7 @@ class CodeEloquent implements CodeInterface{
     {
         $code = $this->code->where('user_id','=',$user_id)->where('valid_at', '>=', date('Y-m-d'))->get();
 
-        if(!$code->isEmpty())
-        {
+        if(!$code->isEmpty()) {
             return $code->first();
         }
 
@@ -61,14 +59,14 @@ class CodeEloquent implements CodeInterface{
 		{
 			return false;
 		}
-		
+
 		return $code;
 	}
-	
+
 	public function update(array $data)
     {
         $code = $this->code->find($data['id']);
-		
+
 		if( ! $code )
 		{
 			return false;
@@ -77,7 +75,7 @@ class CodeEloquent implements CodeInterface{
         $code->fill($data);
         $code->updated_at = date('Y-m-d G:i:s');
 		$code->save();
-		
+
 		return $code;
 	}
 

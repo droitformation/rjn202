@@ -51,7 +51,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admini']], function(
     Route::resource('critique', 'Backend\CritiqueController');
     Route::resource('matiere', 'Backend\MatiereController');
     Route::resource('domain', 'Backend\DomainController');
+
+    Route::post('addCode', 'Backend\CodeController@addCode');
+    Route::post('removeCode', 'Backend\CodeController@removeCode');
     Route::resource('code', 'Backend\CodeController');
+
     Route::resource('user', 'Backend\UserController');
     Route::resource('categorie', 'Backend\CategorieController');
     Route::get('note/create/{matiere_id}', 'Backend\NoteController@create');

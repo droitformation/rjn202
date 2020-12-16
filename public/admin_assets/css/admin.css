@@ -27,3 +27,62 @@ table.dataTable thead .sorting::after{
 select.form-control + .chosen-container .chosen-results li, select.form-control + .chosen-container .chosen-results li.active-result {
     white-space: pre-wrap;
 }
+
+.absolute{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.relative{
+    position: relative;
+}
+
+.font-15{
+    font-size: 15px;
+}
+
+[class*="panel-"].panel .panel-body.bg-ligth{
+    background: #fffef5;
+}
+
+[class*="panel-"].panel .panel-body.bg-active{
+    background: #f5fff6;
+}
+
+.modal.in .modal-dialog{
+    z-index: 1050;
+    margin-top: 5%;
+}
+
+.modal-footer-flex{
+    margin-top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0px 10px 10px 10px;
+}
+
+.modal-header-code{
+    border-bottom: 0px;
+}
+
+.modal-body-code{
+   padding: 10px;
+}
+
+.btn-danger-text,
+.btn-danger-text:hover{
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
+    color: red;
+    box-shadow:none;
+}
+
+.btn-danger-text:hover{
+    color: #000;
+}
