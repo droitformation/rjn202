@@ -146,4 +146,21 @@ class CodeTest extends TestCase
         $this->assertEquals('Code non valide', $this->app['session.store']->all()['message']);
 
     }
+
+    public function testMakeBigNbrCodes()
+    {
+        \DB::table('users')->truncate();
+        \DB::table('codes')->truncate();
+
+        $user = factory(\App\Droit\User\Entities\User::class)->create(['email' => 'info@leschaud.ch', 'password' => bcrypt('wsdew23cdds'), 'role' => 'admin']);
+        $this->actingAs($user);
+
+        $response = $this->post('admin/code', ['nbr' => 800, 'valid_at' => \Carbon\Carbon::today()->addYear()]);
+
+        $repo = \App::make('App\Droit\Code\Repo\CodeInterface');
+
+        $all = $repo->getAll(\Carbon\Carbon::today()->addYear()->year);
+
+        $this->assertEquals(800,$all->count());
+    }
 }

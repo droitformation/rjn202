@@ -14,16 +14,14 @@ class CodeController extends Controller {
         $this->code = $code;
     }
 
-	/**
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-        $codes = $this->code->getAll();
+    public function index($year = null)
+    {
+        $year = $year ? $year : date('Y');
+        $codes = $this->code->getAll($year);
+        $years = $this->code->years();
 
-        return view('admin.codes.index')->with(['codes' => $codes]);
-	}
+        return view('admin.codes.index')->with(['codes' => $codes, 'years' => $years]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -40,11 +38,13 @@ class CodeController extends Controller {
      *
      * @return Response
      */
-    public function store(CreateCode $request)
+    public function store(Request $request)
     {
-        $code = $this->code->create($request->all());
+       // $code = $this->code->create($request->all());
 
-        return redirect('admin/code/'.$code->id);
+        $this->code->make($request->input('nbr'),$request->except(['_token','nbr']));
+
+        return redirect('admin/code');
     }
 
     /**
@@ -108,5 +108,10 @@ class CodeController extends Controller {
         }
 
         return redirect()->back()->with(['status' => 'danger', 'message' => 'Code non valide']);
+    }
+
+    public function export(Request $request)
+    {
+        return \Excel::download(new \App\Exports\CodesExport($request->input('year')), 'codes_'.$request->input('year').'.xlsx');
     }
 }

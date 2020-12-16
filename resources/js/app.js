@@ -24,6 +24,8 @@ Vue.component('loi-search', require('./components/LoiSearch.vue').default);
 
 Vue.component('matiere', require('./components/Matiere.vue').default);
 Vue.component('loi', require('./components/Loi.vue').default);
+Vue.component('code-component', require('./components/CodeComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -12,9 +12,13 @@ class CodeEloquent implements CodeInterface{
 		$this->code = $code;
 	}
 
-    public function getAll(){
+    public function getAll($year = null){
 
-        return $this->code->with(['user'])->get();
+        return $this->code->year($year)->with(['user'])->get();
+    }
+
+    public function years(){
+        return $this->code->selectRaw('Year(valid_at) as year')->groupBy('year')->get();
     }
 
 	public function find($id)
@@ -44,10 +48,35 @@ class CodeEloquent implements CodeInterface{
         return null;
     }
 
+    public function make($nbr,$data){
+
+        $codes = [];
+        $make  = $nbr + ($nbr * 0.1);
+
+        $numbers = getRandomPasswords($make);
+
+        foreach ($numbers as $number){
+            $code = $this->code->where('code','=',$number)->first();
+
+            if(!$code){
+                $codes[] = $this->create($data);
+            }
+
+            if(count($codes) == $nbr){
+                return $codes;
+            }
+        }
+
+        if(count($codes) < $nbr){
+            $rest = $nbr - count($codes);
+            $this->make($rest,$data);
+        }
+    }
+
 	public function create(array $data){
 
 		$code = $this->code->create(array(
-			'code'        => $data['code'],
+			'code'        => $data['code'] ?? $this->newCode(),
             'valid_at'    => $data['valid_at'],
 			'used'        => null,
             'user_id'     => null,
@@ -86,4 +115,18 @@ class CodeEloquent implements CodeInterface{
 		return $code->delete($id);
 	}
 
+    public function newCode(){
+
+        $random = getRandomPasswords(3);
+
+        foreach ($random as $rand){
+            $code = $this->code->where('code','=',$rand)->first();
+
+            if(!$code){
+                return $rand;
+            }
+        }
+
+        return newCode();
+    }
 }

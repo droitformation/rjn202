@@ -52,6 +52,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admini']], function(
     Route::resource('matiere', 'Backend\MatiereController');
     Route::resource('domain', 'Backend\DomainController');
 
+    Route::post('code/export','Backend\CodeController@export');
+    Route::get('code/{year?}','Backend\CodeController@index');
     Route::post('addCode', 'Backend\CodeController@addCode');
     Route::post('removeCode', 'Backend\CodeController@removeCode');
     Route::resource('code', 'Backend\CodeController');

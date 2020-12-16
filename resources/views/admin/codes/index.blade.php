@@ -1,14 +1,23 @@
 @extends('layouts.admin')
 @section('content')
 
+<form action="{{ url('admin/code/export') }}" method="POST" class="row">@csrf
+    <div class="options-row">
+        <div class="pr-2"><a href="{{ url('admin/code/create') }}" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp;Ajouter</a></div>
+        <div>
+            <select class="form-control form-options" name="year">
+                @foreach($years as $y)
+                    <option value="{{ $y->year }}">{{ $y->year }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div><button class="btn btn-secondary ml-2">Exporter</button></div>
+    </div>
+</form>
+
+
 <div class="row">
     <div class="col-md-12">
-
-        <div class="options text-right" style="margin-bottom: 10px;">
-            <div class="btn-toolbar">
-               <a href="{{ url('admin/code/create') }}" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp;Ajouter</a>
-            </div>
-        </div>
 
         <div class="panel panel-midnightblue">
             <div class="panel-heading">
