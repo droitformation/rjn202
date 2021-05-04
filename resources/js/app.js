@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('loi-search', require('./components/LoiSearch.vue').default);
+Vue.component('loi-global-search', require('./components/LoiGlobalSearch.vue').default);
 
 Vue.component('matiere', require('./components/Matiere.vue').default);
 Vue.component('loi', require('./components/Loi.vue').default);

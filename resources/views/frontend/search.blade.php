@@ -34,6 +34,7 @@
                     <a href="{{ url('arret/'.$arret->id) }}">
                         page {{ $arret->page }}, Volume {{ $rjn->find($arret->volume_id)->publication_at->year }}
                     </a>
+                    Référence : RJN {{ $rjn->find($arret->volume_id)->publication_at->year }} {{ $arret->page }}
                 </div>
                 <div class="col-md-1">
                     <a class="btn btn-sm btn-default" href="{{ url('arret/'.urlencode($arret->id)) }}">Voir</a>

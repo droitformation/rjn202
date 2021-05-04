@@ -113,8 +113,11 @@ class HomeController extends Controller {
         print_r($lois);
         echo '</pre>';
         exit;*/
+        
+        $arrets = $this->arret->getAll(1);
+        $arretsData = $this->worker->getArretsData($arrets, $this->rjn);
 
-        return view('frontend.index')->with(['lois' => $lois, 'articles' => $articles]);
+        return view('frontend.index')->with(['lois' => $lois, 'articles' => $articles, 'years' => $arretsData['volumes'], 'pages' => $arretsData['pages']]);
     }
 
     /**
@@ -243,7 +246,7 @@ class HomeController extends Controller {
     {
         $arret    = $this->arret->find($id);
         $critique = $this->critique->getByType('arret',$id);
-
+        
         $section = [ 'url' => 'jurisprudence/' , 'page' => 'Jurisprudence' ];
         $page    = [ 'page' => 'arrêt' ];
 

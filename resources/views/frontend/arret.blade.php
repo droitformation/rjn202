@@ -41,7 +41,7 @@
                             <p><a class="btn btn-default btn-sm" href="#analyse">Voir l'analyse de l'arrêt</a></p>
                         @endif
 
-                        <p><small><i class="glyphicon glyphicon-book"></i> &nbsp;RJN {{ $rjn->find($arret->volume_id)->publication_at->year }}</small></p>
+                        <p><small><i class="glyphicon glyphicon-book"></i> &nbsp;RJN {{ $rjn->find($arret->volume_id)->publication_at->year }} {{$arret->page}}</small></p>
 
                         <h3 class="post-title">{{ $arret->designation }}</h3>
                         <p class="{{ $lois }}"><strong>{{ $arret->cotes }}</strong></p>

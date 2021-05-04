@@ -23,6 +23,25 @@ class SearchWorker{
         })->flatten(1)->unique('id');
     }
 
+    public function searchByVolumePage($year,$page,$term,$volumes)
+    {
+        $results = array();
+        
+        $volume_id = "";
+        foreach($volumes as $volume) {
+            $volumeYear = $volume->publication_at->year;
+            if($volumeYear == intval($year)) {
+                $volume_id = $volume->id;
+            }
+        }
+        
+        $results[0] = array();
+        $results[0]['result'] = $this->arret->getVolumePage($volume_id,$page);
+        $results[0]['terms'] = $term;
+        return $results;
+    }
+    
+    
     public function findArret($found,$search)
     {
         if(!empty($found))

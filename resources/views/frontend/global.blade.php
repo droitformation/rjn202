@@ -14,7 +14,8 @@
                             <h3>Recherche: <strong>{{ $search['terms'] }}</strong> dans <strong>{{ $content }}</strong></h3><br/>
 
                             @if( (is_array($search['result']) && !empty($search['result'])) || !$search['result']->isEmpty() )
-                                @if(array_key_exists('doctrine', $search['result']))
+                                
+                                @if(isset($search['result']['doctrine']))
 
                                     @if(!$search['result']['doctrine']->isEmpty())
                                         <h4>Doctrine</h4>

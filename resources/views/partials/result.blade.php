@@ -35,7 +35,7 @@
             <div class="col-md-8">
                 <h4><a href="{{ url($url.'/'.$path) }}">{{ $arret->designation ?? $arret->titre }}</a></h4>
             </div>
-            <div class="col-md-3">page {{ $arret->page }}, Volume {{ $rjn->find($arret->volume_id)->publication_at->year }}</div>
+            <div class="col-md-3">page {{ $arret->page }}, Volume {{ $rjn->find($arret->volume_id)->publication_at->year }} <br />RJN {{ $rjn->find($arret->volume_id)->publication_at->year }} {{ $arret->page }}</div>
             <div class="col-md-1"><a class="btn btn-sm btn-default" href="{{ url($url.'/'.$path) }}">Voir</a></div>
         </div>
     @endif
