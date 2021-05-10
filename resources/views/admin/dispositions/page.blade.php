@@ -50,7 +50,7 @@
                                     {!! Form::text('sub[page][]', $page->page , array('class' => 'form-control', 'placeholder' => 'page') ) !!}
                                 </div>
                                 <div class="col-lg-1 col-sm-2 col-xs-2">
-                                    {!! Form::select('sub[volume_id][]', array('' => 'Choisir') + $rjn , $page->volume_id, [ 'class' => 'form-control', 'placeholder' => 'volume']) !!}
+                                    {!! Form::select('sub[volume_id][]', array('' => 'Choisir') + $rjn->toArray() , $page->volume_id, [ 'class' => 'form-control', 'placeholder' => 'volume']) !!}
                                 </div>
                             </div>
 
@@ -83,7 +83,7 @@
                             {!! Form::text('sub[page][]', null , array('class' => 'form-control', 'placeholder' => 'page') ) !!}
                         </div>
                         <div class="col-lg-1 col-sm-2 col-xs-2">
-                            {!! Form::select('sub[volume_id][]', array('' => 'Choisir') + $rjn , null, [ 'class' => 'form-control', 'placeholder' => 'volume']) !!}
+                            {!! Form::select('sub[volume_id][]', array('' => 'Choisir') + $rjn->toArray() , null, [ 'class' => 'form-control', 'placeholder' => 'volume']) !!}
                         </div>
                     </div>
 
