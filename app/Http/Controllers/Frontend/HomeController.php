@@ -117,7 +117,7 @@ class HomeController extends Controller {
         $arrets = $this->arret->getAll(1);
         $arretsData = $this->worker->getArretsData($arrets, $this->rjn);
 
-        return view('frontend.index')->with(['lois' => $lois, 'articles' => $articles, 'years' => $arretsData['volumes'], 'pages' => $arretsData['pages']]);
+        return view('frontend.index')->with(['lois' => $lois, 'articles' => $articles, 'years' => $arretsData['volumes'], 'pages' => $arretsData['pages'], 'years_page' => $arretsData['all']]);
     }
 
     /**

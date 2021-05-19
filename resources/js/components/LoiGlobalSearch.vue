@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="LoiSearchContainer">
   <input type="hidden" :name="fieldname" :value="currentInputValue">
   <vue-suggestion :items="items" 
                   v-model="item"   
@@ -8,7 +8,8 @@
                   :minLen="minLen"
                   :placeholder="placeholder"
                   @changed="inputChange" 
-                  @selected="itemSelected">
+                  @selected="itemSelected"
+                  @enter="manageKeyEnter">
   </vue-suggestion>
   </div>  
 </template>
@@ -71,7 +72,7 @@ import VueSuggestion from 'vue-suggestion';
 import itemTemplate from './LoiGlobalSearch-item-template.vue';
 
 export default {
-  props: ['fieldname','annees','pages'],
+  props: ['fieldname','annees','pages','years_pages','custom_form_id'],
   data () {  
     return {
       item: {},
@@ -81,28 +82,48 @@ export default {
       minLen:  3,
       initYears : this.annees,
       initPages : this.pages,
+      initYearsPages : this.years_pages,
       currentInputValue : "",
+      hasChanged : false,
+      currentFormId : this.custom_form_id
     }
   },  
   methods: {
+  	manageKeyEnter () {
+  		if(this.hasChanged) {
+  			this.hasChanged = false;
+  		} else {
+  			this.hasChanged = false;
+  			document.getElementById(this.currentFormId.id).submit();
+			return false;
+  		}
+  	},
     itemSelected (item) {
       this.item = item;
-      this.items = this.initPages;
-      this.inputChange(this.item.name+" ");
+      this.items = this.initYearsPages;
+      this.inputChange(this.item.name+" ");      
     },
     setLabel (item) {
       return item.name;
     },
     inputChange (text) {
-      this.currentInputValue = text; 
-      // your search method
-      if(text.toLowerCase().includes("rjn")) {
-	      if(text.length < 8) {		  
-		      	this.items = this.initYears.filter(item => item.name.toLowerCase().includes(text.toLowerCase()));		      			 
-		  } else {		  	  
-		      	this.items = this.initPages.filter(item => item.name.toLowerCase().includes(text.toLowerCase()));		      	
-		  }
-	  }
+      this.currentInputValue = text;
+      if( (text.length > 2) && ( (text.toLowerCase().includes("rjn")) || (!isNaN(text.replace(" ","")) && (parseInt(text) > 2000) ) ) ) {
+                
+        if( (!isNaN(text.replace(" ",""))) && (!text.toLowerCase().includes("rjn")) && (text.length < 9) && (parseInt(text) > 2000)) {
+        	text = "rjn " + text;
+        }
+      
+        this.hasChanged = true;	
+      	if(text.length < 8) {		
+      		this.items = this.initYearsPages;
+      	} else {
+      		this.items = this.initPages.filter(item => item.name.toLowerCase().includes(text.toLowerCase()));	
+      	}
+      } else {
+      	this.items = [];
+      	this.hasChanged = false;
+      }      
     },
   },
   

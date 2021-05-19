@@ -51,6 +51,7 @@ class ArretWorker{
             
         $return['volumes'] = $years;
         $return['pages'] = $pages;
+        $return['all'] = array_merge($years,$pages);
         
         return $return;
     }

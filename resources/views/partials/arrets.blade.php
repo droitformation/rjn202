@@ -3,7 +3,7 @@
         @foreach($arrets as $arret)
         <div class="arrets-list-item row">
             <div class="col-md-10">
-                <p><small><i class="glyphicon glyphicon-book"></i> &nbsp;RJN {{ $rjn->find($arret->volume_id)->publication_at->year }}</small></p>
+                <p><small><i class="glyphicon glyphicon-book"></i> &nbsp;RJN {{ $rjn->find($arret->volume_id)->publication_at->year }} {{ $arret->page }}</small></p>
                 <a href="{{ url('arret/'.$arret->id) }}">{{ $arret->designation }}</a>
                 <p class="text-muted">{!! $arret->sommaire !!}</p>
                 <p><strong>{{ $arret->cotes }}</strong></p>
