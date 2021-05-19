@@ -133,7 +133,10 @@ class HomeController extends Controller {
     {
         $section = [ 'url' => 'jurisprudence', 'page' => 'Jurisprudence' ];
 
-        return view('frontend.jurisprudence')->with(array('section' => $section, 'content' => 'Jurisprudence', 'type' => 'arret'));
+        $arrets = $this->arret->getAll(1);
+        $arretsData = $this->worker->getArretsData($arrets, $this->rjn);
+        
+        return view('frontend.jurisprudence')->with(array('section' => $section, 'content' => 'Jurisprudence', 'type' => 'arret', 'years' => $arretsData['volumes'], 'pages' => $arretsData['pages'], 'years_page' => $arretsData['all']));
     }
 
     /**
