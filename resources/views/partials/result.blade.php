@@ -36,11 +36,7 @@
                 <h4><a href="{{ url($url.'/'.$path) }}">{{ $arret->designation ?? $arret->titre }}</a></h4>
             </div>
             <div class="col-md-3">
-            @if(!$type == 'doctrine'))
-           		<strong>RJN {{ $rjn->find($arret->volume_id)->publication_at->year }} {{ $arret->page }}</strong>
-           	@else
-           		page {{ $arret->page }}, Volume {{ $rjn->find($arret->volume_id)->publication_at->year }}
-           	@endif
+           		<strong>RJN {{ $rjn->find($arret->volume_id)->publication_at->year }} {{ $arret->page }}</strong>           	
            	</div>
             <div class="col-md-1"><a class="btn btn-sm btn-default" href="{{ url($url.'/'.$path) }}">Voir</a></div>
         </div>
