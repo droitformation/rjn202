@@ -38,7 +38,7 @@
             <div class="col-md-3">
             @if(!$type == 'doctrine'))
            		<strong>RJN {{ $rjn->find($arret->volume_id)->publication_at->year }} {{ $arret->page }}</strong>
-           	@elseif
+           	@else
            		page {{ $arret->page }}, Volume {{ $rjn->find($arret->volume_id)->publication_at->year }}
            	@endif
            	</div>
