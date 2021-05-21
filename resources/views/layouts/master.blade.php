@@ -11,7 +11,7 @@
 
         <!-- CSS Files
         ================================================== -->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700italic,700,800,800italic,300italic,300' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700italic,700,800,800italic,300italic,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="<?php echo asset('site_assets/js/vendor/jqueryui/jquery-ui.min.css');?>" media="screen" />
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -26,10 +26,10 @@
         <!-- Javascript Files
         ================================================== -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
+        <script src="https://code.jquery.com/jquery-migrate-1.0.0.js"></script>
         <script src="<?php echo asset('site_assets/js/vendor/jqueryui/jquery-ui.min.js');?>"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
         <script src="<?php echo asset('js/validation/messages_fr.js');?>"></script>
         <script type="text/javascript" src="<?php echo asset('site_assets/js/vendor/chosen/chosen.jquery.js');?>"></script>
         <script src="<?php echo asset('site_assets/js/scroll/smooth-scroll.js');?>"></script>
@@ -39,7 +39,7 @@
         <script src="<?php echo asset('site_assets/js/select2.full.min.js');?>"></script>
 
         <!--[if lte IE 9]>
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 
     </head>

@@ -18,8 +18,8 @@
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
 	<!--[if lt IE 9]>
     <link rel="stylesheet" href="<?php echo asset('admin_assets/css/styles.ie8.css');?>">
-    <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+    <script type="text/javascript" src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
 	<![endif]-->
 
     <script>
@@ -101,12 +101,12 @@
     </div> <!-- page-container -->
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.0.0.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
     <script src="<?php echo asset('js/validation/messages_fr.js');?>"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
-    <script src="http://fb.me/react-0.13.1.js"></script>
+    <script src="https://fb.me/react-0.13.1.js"></script>
     <script type="text/javascript" src="<?php echo asset('admin_assets/js/vendor/react/JSXTransformer.js');?>"></script>
     <script type="text/javascript" src="<?php echo asset('admin_assets/js/vendor/chosen/chosen.jquery.js');?>"></script>
     <script type="text/javascript" src="<?php echo asset('admin_assets/js/enquire.js');?>"></script>
