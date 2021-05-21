@@ -73,6 +73,10 @@ class ArretEloquent implements ArretInterface{
         return $this->arret->where('volume_id','=',$volume_id)->where('page','=',$page)->get();
     }
 
+    public function getVolume($volume_id){
+        return $this->arret->where('volume_id','=',$volume_id)->orderBy('page')->get();
+    }
+
     public function searchAgainst($terms)
     {
         return $this->arret->whereRaw(

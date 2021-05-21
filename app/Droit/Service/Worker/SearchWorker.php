@@ -36,7 +36,10 @@ class SearchWorker{
         }
         
         $results[0] = array();
-        $results[0]['result'] = $this->arret->getVolumePage($volume_id,$page);
+        if( empty( $page ) )
+            $results[0]['result'] = $this->arret->getVolume($volume_id);
+        else
+            $results[0]['result'] = $this->arret->getVolumePage($volume_id,$page);
         $results[0]['terms'] = $term;
         return $results;
     }

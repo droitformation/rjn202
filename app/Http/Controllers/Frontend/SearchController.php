@@ -66,11 +66,13 @@ class SearchController extends Controller {
         $content = $request->input('content');
         $search_content = ($content == 'doctrine' ? ['doctrine','chronique'] : $content);
 
-        if(strpos(strtolower($request->input('terms')), "rjn") == 0) {
+        if(mb_strpos(mb_strtolower($request->input('terms')), "rjn") === 0) {
             $aTerms = explode(" ", $request->input('terms'));
-            if(sizeof($aTerms) > 2) {
+            if(sizeof($aTerms) >= 2) {
                 $volume = $aTerms[1];
-                $page = $aTerms[2];
+                $page = '';
+                if(sizeof($aTerms) > 2)
+                    $page = $aTerms[2];
                 $volumes = $this->rjn->getAll();
                 $results = $this->worker->searchByVolumePage($volume, $page, $request->input('terms'),$volumes);
             } else {
