@@ -65,7 +65,7 @@
                     @if(Auth::check())
                         <li class="pull-right">
                             <i class="fa fa-user"></i> &nbsp;{{ Auth::user()->name }} |
-                            <a href="{{ url('logout') }}"><i class="fa fa-power-off"></i> &nbsp;Se déconncter</a>
+                            <a href="{{ url('logout') }}"><i class="fa fa-power-off"></i> &nbsp;Se déconnecter</a>
                         </li>
                     @endif
                 </ul>
