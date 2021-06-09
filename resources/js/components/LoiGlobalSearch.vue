@@ -9,7 +9,10 @@
                   :placeholder="placeholder"
                   @changed="inputChange" 
                   @selected="itemSelected"
-                  @enter="manageKeyEnter">
+                  @enter="manageKeyEnter"
+                  @mousedown="downlb"
+                  @mouseup="uplb"
+                  @click="clicklb">
   </vue-suggestion>
   </div>  
 </template>
@@ -71,6 +74,23 @@
 import VueSuggestion from 'vue-suggestion';
 import itemTemplate from './LoiGlobalSearch-item-template.vue';
 
+const BaseSuggestion = Vue.options.components["vue-suggestion"];
+const CustomSuggestion = BaseSuggestion.extend({
+  methods:{
+	  blur: function blur() {
+	      var _this = this;
+
+	      this.$emit('blur', this.searchText); // set timeout for the click event to work
+
+	      setTimeout(function () {
+	        _this.showList = true; //override base component !!!
+	      }, 200);
+	    },
+  }
+});
+
+Vue.component("vue-suggestion", CustomSuggestion);
+
 export default {
   props: ['fieldname','annees','pages','years_pages','custom_form_id'],
   data () {  
@@ -78,7 +98,7 @@ export default {
       item: {},
       items: [],
       itemTemplate,
-      placeholder: "Mots clés",
+      placeholder: "Numéro d’arrêt ou mots-clés",
       minLen:  3,
       initYears : this.annees,
       initPages : this.pages,
@@ -89,6 +109,15 @@ export default {
     }
   },  
   methods: {
+	downlb () {
+		alert("down");
+	},
+	uplb () {
+		alert("up");
+	},
+	clicklb () {
+		alert("click");
+	},
   	manageKeyEnter () {
   		if(this.hasChanged) {
   			this.hasChanged = false;
@@ -101,7 +130,9 @@ export default {
     itemSelected (item) {
       this.item = item;
       this.items = this.initYearsPages;
-      this.inputChange(this.item.name+" ");      
+      this.inputChange(this.item.name+" ");
+      this.showList = true;
+      this.searchText = this.item.name+" ";
     },
     setLabel (item) {
       return item.name;
